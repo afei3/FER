@@ -1,12 +1,10 @@
 #pragma once
 
-
-
 using namespace std;
 
 class Cursor {
 	private:
-		int x;
-		int y;
+		unsigned x;
+		unsigned y;
 	public:
 };

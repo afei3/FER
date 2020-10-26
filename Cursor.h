@@ -7,4 +7,10 @@ class Cursor {
 		unsigned x;
 		unsigned y;
 	public:
+		unsigned getX() {
+			return x;
+		};
+		unsigned getY() {
+			return y;
+		};
 };

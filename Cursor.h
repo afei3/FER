@@ -7,10 +7,10 @@ class Cursor {
 		unsigned x;
 		unsigned y;
 	public:
-		unsigned getX() {
-			return x;
-		};
-		unsigned getY() {
-			return y;
-		};
+		unsigned getX();
+		unsigned getY();
+		void moveRight();
+		void moveLeft();
+		void moveUp();
+		void moveDown();
 };

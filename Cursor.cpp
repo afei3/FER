@@ -7,3 +7,19 @@ unsigned Cursor::getX() {
 unsigned Cursor::getY() {
 	return y;
 }
+
+void Cursor::moveDown() {
+	y -= 1;
+}
+
+void Cursor::moveUp() {
+	y += 1;
+}
+
+void Cursor::moveLeft() {
+	x -= 1;
+}
+
+void Cursor::moveRight() {
+	x += 1;
+}

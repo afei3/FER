@@ -1,40 +1,6 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2020)
-and may not be redistributed without written permission.*/
-
-//Using SDL, SDL_image, standard IO, and strings
-#include <SDL.h>
-#include <SDL_image.h>
-#include <stdio.h>
-#include <string>
 #include "ImageProcessor.h"
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-
-//Starts up SDL and creates window
-bool init();
-
-//Loads media
-bool loadMedia();
-
-//Frees media and shuts down SDL
-void close();
-
-//Loads individual image
-SDL_Surface* loadSurface(std::string path);
-
-//The window we'll be rendering to
-SDL_Window* gWindow = NULL;
-
-//The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
-
-//Current displayed PNG image
-SDL_Surface* gPNGSurface = NULL;
-
-bool init()
-{
+bool ImageProcessor::init() {
 	//Initialization flag
 	bool success = true;
 
@@ -47,7 +13,7 @@ bool init()
 	else
 	{
 		//Create window
-		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -73,8 +39,7 @@ bool init()
 	return success;
 }
 
-bool loadMedia()
-{
+bool ImageProcessor::loadMedia() {
 	//Loading success flag
 	bool success = true;
 
@@ -89,8 +54,7 @@ bool loadMedia()
 	return success;
 }
 
-void close()
-{
+void ImageProcessor::close() {
 	//Free loaded image
 	SDL_FreeSurface(gPNGSurface);
 	gPNGSurface = NULL;
@@ -104,8 +68,7 @@ void close()
 	SDL_Quit();
 }
 
-SDL_Surface* loadSurface(std::string path)
-{
+SDL_Surface* ImageProcessor::loadSurface(std::string path) {
 	//The final optimized image
 	SDL_Surface* optimizedSurface = NULL;
 
@@ -131,9 +94,8 @@ SDL_Surface* loadSurface(std::string path)
 	return optimizedSurface;
 }
 
-int main(int argc, char* args[])
-{
-	/*//Start up SDL and create window
+void ImageProcessor::run() {
+	//Start up SDL and create window
 	if (!init())
 	{
 		printf("Failed to initialize!\n");
@@ -177,12 +139,4 @@ int main(int argc, char* args[])
 
 	//Free resources and close SDL
 	close();
-
-	return 0;*/
-
-	ImageProcessor i = ImageProcessor();
-
-	i.run();
-
-	return 0;
 }

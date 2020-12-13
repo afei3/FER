@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include "MapController.h"
+#include "LTexture.h"
 
 
 class ImageProcessor {
@@ -13,6 +14,8 @@ class ImageProcessor {
 		SDL_Window* gWindow = NULL;
 		SDL_Surface* gScreenSurface = NULL;
 		SDL_Surface* gPNGSurface = NULL;
+		LTexture* gSprite = NULL;
+
 	public:
 		bool init();
 		bool loadMedia();

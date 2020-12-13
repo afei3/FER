@@ -1,6 +1,6 @@
-#include "LTexture.h"
+#include "ImageProcessor.h"
 
-LTexture::LTexture()
+ImageProcessor::LTexture::LTexture()
 {
 	//Initialize
 	mTexture = NULL;
@@ -8,13 +8,13 @@ LTexture::LTexture()
 	mHeight = 0;
 }
 
-LTexture::~LTexture()
+ImageProcessor::LTexture::~LTexture()
 {
 	//Deallocate
 	free();
 }
 
-bool LTexture::loadFromFile(std::string path)
+bool ImageProcessor::LTexture::loadFromFile(std::string path)
 {
 	//Get rid of preexisting texture
 	free();
@@ -55,7 +55,7 @@ bool LTexture::loadFromFile(std::string path)
 	return mTexture != NULL;
 }
 
-void LTexture::free()
+void ImageProcessor::LTexture::free()
 {
 	//Free texture if it exists
 	if (mTexture != NULL)
@@ -67,25 +67,25 @@ void LTexture::free()
 	}
 }
 
-void LTexture::setColor(Uint8 red, Uint8 green, Uint8 blue)
+void ImageProcessor::LTexture::setColor(Uint8 red, Uint8 green, Uint8 blue)
 {
 	//Modulate texture rgb
 	SDL_SetTextureColorMod(mTexture, red, green, blue);
 }
 
-void LTexture::setBlendMode(SDL_BlendMode blending)
+void ImageProcessor::LTexture::setBlendMode(SDL_BlendMode blending)
 {
 	//Set blending function
 	SDL_SetTextureBlendMode(mTexture, blending);
 }
 
-void LTexture::setAlpha(Uint8 alpha)
+void ImageProcessor::LTexture::setAlpha(Uint8 alpha)
 {
 	//Modulate texture alpha
 	SDL_SetTextureAlphaMod(mTexture, alpha);
 }
 
-void LTexture::render(int x, int y, SDL_Rect* clip)
+void ImageProcessor::LTexture::render(int x, int y, SDL_Rect* clip)
 {
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
@@ -101,12 +101,12 @@ void LTexture::render(int x, int y, SDL_Rect* clip)
 	SDL_RenderCopy(gRenderer, mTexture, clip, &renderQuad);
 }
 
-int LTexture::getWidth()
+int ImageProcessor::LTexture::getWidth()
 {
 	return mWidth;
 }
 
-int LTexture::getHeight()
+int ImageProcessor::LTexture::getHeight()
 {
 	return mHeight;
 }

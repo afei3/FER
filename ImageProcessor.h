@@ -25,7 +25,7 @@ class ImageProcessor {
 			//Loads image at specified path
 			bool loadFromFile(std::string path);
 
-			bool loadFromFile(std::string path, SDL_Window window);
+			bool loadFromFile(std::string path, SDL_Renderer* renderer);
 
 			//Deallocates texture
 			void free();
@@ -50,16 +50,20 @@ class ImageProcessor {
 			//The actual hardware texture
 			SDL_Texture* mTexture;
 
-			//The window we'll be rendering to
-			SDL_Window* gWindow = NULL;
-
-			//The window renderer
 			SDL_Renderer* gRenderer = NULL;
 
 			//Image dimensions
 			int mWidth;
 			int mHeight;
 		};
+
+		const int WALKING_ANIMATION_FRAMES = 4;
+		const int SCREEN_WIDTH = 640;
+		const int SCREEN_HEIGHT = 480;
+		SDL_Rect gSpriteClips[4];
+		LTexture gSpriteSheetTexture;
+		SDL_Renderer* gRenderer = NULL;
+
 
 	public:
 		bool init();

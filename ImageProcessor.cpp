@@ -12,8 +12,14 @@ bool ImageProcessor::init() {
 	}
 	else
 	{
+		//Set texture filtering to linear
+		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+		{
+			printf("Warning: Linear texture filtering not enabled!");
+		}
+
 		//Create window
-		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -21,17 +27,25 @@ bool ImageProcessor::init() {
 		}
 		else
 		{
-			//Initialize PNG loading
-			int imgFlags = IMG_INIT_PNG;
-			if (!(IMG_Init(imgFlags) & imgFlags))
+			//Create vsynced renderer for window
+			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			if (gRenderer == NULL)
 			{
-				printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 				success = false;
 			}
 			else
 			{
-				//Get window surface
-				gScreenSurface = SDL_GetWindowSurface(gWindow);
+				//Initialize renderer color
+				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+				//Initialize PNG loading
+				int imgFlags = IMG_INIT_PNG;
+				if (!(IMG_Init(imgFlags) & imgFlags))
+				{
+					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -43,12 +57,35 @@ bool ImageProcessor::loadMedia() {
 	//Loading success flag
 	bool success = true;
 
-	//Load PNG surface
-	gPNGSurface = loadSurface("loaded.png");
-	if (gPNGSurface == NULL)
+	//Load sprite sheet texture
+	if (!gSpriteSheetTexture.loadFromFile("cursortotal.png", gRenderer))
 	{
-		printf("Failed to load PNG image!\n");
+		printf("Failed to load walking animation texture!\n");
 		success = false;
+	}
+	else
+	{
+		//Set sprite clips
+		gSpriteClips[0].x = 0;
+		gSpriteClips[0].y = 0;
+		gSpriteClips[0].w = 100;
+		gSpriteClips[0].h = 100;
+
+		gSpriteClips[1].x = 100;
+		gSpriteClips[1].y = 0;
+		gSpriteClips[1].w = 100;
+		gSpriteClips[1].h = 100;
+
+		gSpriteClips[2].x = 200;
+		gSpriteClips[2].y = 0;
+		gSpriteClips[2].w = 100;
+		gSpriteClips[2].h = 100;
+
+
+		gSpriteClips[3].x = 100;
+		gSpriteClips[3].y = 0;
+		gSpriteClips[3].w = 100;
+		gSpriteClips[3].h = 100;
 	}
 
 	return success;
@@ -56,12 +93,13 @@ bool ImageProcessor::loadMedia() {
 
 void ImageProcessor::close() {
 	//Free loaded image
-	SDL_FreeSurface(gPNGSurface);
-	gPNGSurface = NULL;
+	gSpriteSheetTexture.free();
 
-	//Destroy window
+	//Destroy window	
+	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
+	gRenderer = NULL;
 
 	//Quit SDL subsystems
 	IMG_Quit();
@@ -115,6 +153,9 @@ void ImageProcessor::run() {
 			//Event handler
 			SDL_Event e;
 
+			//Current animation frame
+			int frame = 0;
+
 			//While application is running
 			while (!quit)
 			{
@@ -128,11 +169,25 @@ void ImageProcessor::run() {
 					}
 				}
 
-				//Apply the PNG image
-				SDL_BlitSurface(gPNGSurface, NULL, gScreenSurface, NULL);
+				//Clear screen
+				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(gRenderer);
 
-				//Update the surface
-				SDL_UpdateWindowSurface(gWindow);
+				//Render current frame
+				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
+				gSpriteSheetTexture.render((SCREEN_WIDTH - currentClip->w) / 2, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
+
+				//Update screen
+				SDL_RenderPresent(gRenderer);
+
+				//Go to next frame
+				++frame;
+
+				//Cycle animation
+				if (frame / 4 >= WALKING_ANIMATION_FRAMES)
+				{
+					frame = 0;
+				}
 			}
 		}
 	}

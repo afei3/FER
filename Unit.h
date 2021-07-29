@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Item.h"
 
 using namespace std;
 
@@ -14,10 +15,13 @@ class Unit {
 		int level;
 		int xp;
 		int stats[8];
-		double stat_growths[8];
+		int stat_growths[8];
 		int max_stats[8];
 		CLASS c;
+		Item items[5];
+		
 
 	public:
 		void levelUp();
+		Unit();
 };

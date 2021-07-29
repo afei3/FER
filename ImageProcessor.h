@@ -5,11 +5,13 @@
 #include <stdio.h>
 #include <string>
 #include "MapController.h"
+#include "Map.h"
 
 
 class ImageProcessor {
 	private:
 		MapController* MapController;
+		Map* cur_map;
 		SDL_Window* gWindow = NULL;
 		SDL_Surface* gScreenSurface = NULL;
 		SDL_Surface* gPNGSurface = NULL;

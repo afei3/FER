@@ -176,6 +176,7 @@ void ImageProcessor::run() {
 				//Render current frame
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
 				gSpriteSheetTexture.render((SCREEN_WIDTH - currentClip->w) / 2, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
+				gSpriteSheetTexture.render((SCREEN_WIDTH - currentClip->w) / 3, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

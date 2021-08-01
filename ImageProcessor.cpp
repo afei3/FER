@@ -100,6 +100,7 @@ bool ImageProcessor::loadMedia() {
 void ImageProcessor::close() {
 	//Free loaded image
 	gSpriteSheetTexture.free();
+	map_background.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer(gRenderer);
@@ -188,7 +189,7 @@ void ImageProcessor::run() {
 								map_controller->moveCursor(RIGHT);
 								break;
 							default:
-								cout << "Get nae naed" << endl;
+								cout << map_controller->getCursor()->getY() << endl;
 								break;
 						}
 					}
@@ -201,7 +202,7 @@ void ImageProcessor::run() {
 				//Render current frame
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
 				map_background.render(0, 0);
-				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, SCREEN_HEIGHT / 2 - map_controller->getCursor()->getY() * DIST, currentClip);
+				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, SCREEN_HEIGHT - map_controller->getCursor()->getY() * DIST, currentClip);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

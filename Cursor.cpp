@@ -9,19 +9,19 @@ unsigned Cursor::getY() {
 }
 
 void Cursor::moveDown() {
-	y -= 1;
-}
-
-void Cursor::moveUp() {
 	y += 1;
 }
 
+void Cursor::moveUp() {
+	y -= 1;
+}
+
 void Cursor::moveLeft() {
-	x -= 1;
+	x += 1;
 }
 
 void Cursor::moveRight() {
-	x += 1;
+	x -= 1;
 }
 
 Cursor::Cursor() {

@@ -15,4 +15,5 @@ class Cursor {
 		void moveLeft();
 		void moveUp();
 		void moveDown();
+		Cursor();
 };

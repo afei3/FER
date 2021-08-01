@@ -3,6 +3,7 @@
 bool ImageProcessor::init() {
 	//Initialization flag
 	bool success = true;
+	map_controller = new MapController();
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -88,6 +89,11 @@ bool ImageProcessor::loadMedia() {
 		gSpriteClips[3].h = 100;
 	}
 
+	if (!map_background.loadFromFile("map_14.png", gRenderer)) {
+		printf("fmega\n");
+		success = false;
+	}
+
 	return success;
 }
 
@@ -167,6 +173,25 @@ void ImageProcessor::run() {
 					{
 						quit = true;
 					}
+					else if (e.type == SDL_KEYDOWN) {
+						switch (e.key.keysym.sym) {
+							case SDLK_UP:
+								map_controller->moveCursor(UP);
+								break;
+							case SDLK_DOWN:
+								map_controller->moveCursor(DOWN);
+								break;
+							case SDLK_LEFT:
+								map_controller->moveCursor(LEFT);
+								break;
+							case SDLK_RIGHT:
+								map_controller->moveCursor(RIGHT);
+								break;
+							default:
+								cout << "Get nae naed" << endl;
+								break;
+						}
+					}
 				}
 
 				//Clear screen
@@ -175,8 +200,8 @@ void ImageProcessor::run() {
 
 				//Render current frame
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
-				gSpriteSheetTexture.render((SCREEN_WIDTH - currentClip->w) / 2, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
-				gSpriteSheetTexture.render((SCREEN_WIDTH - currentClip->w) / 3, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
+				map_background.render(0, 0);
+				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, SCREEN_HEIGHT / 2 - map_controller->getCursor()->getY() * DIST, currentClip);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

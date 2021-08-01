@@ -19,3 +19,16 @@ void MapController::moveCursor(DIRECTION direction) {
 		}
 	}
 }
+
+Map* MapController::getMap() {
+	return current_map;
+}
+
+Cursor* MapController::getCursor() {
+	return cursor;
+}
+
+MapController::MapController() {
+	current_map = new Map();
+	cursor = new Cursor();
+}

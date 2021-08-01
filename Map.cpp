@@ -14,8 +14,8 @@ unsigned Map::getWidth() {
 
 Map::Map() {
 	map_name = "???";
-	width = 0;
-	height = 0;
+	width = 100;
+	height = 100;
 }
 
 Map::Map(TERRAIN** map, unsigned u_width, unsigned u_height) {

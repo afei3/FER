@@ -23,3 +23,8 @@ void Cursor::moveLeft() {
 void Cursor::moveRight() {
 	x += 1;
 }
+
+Cursor::Cursor() {
+	x = 0;
+	y = 0;
+}

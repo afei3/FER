@@ -6,12 +6,12 @@
 #include <string>
 #include "MapController.h"
 #include "Map.h"
+#include "Cursor.h"
 
 
 class ImageProcessor {
 	private:
-		MapController* MapController;
-		Map* cur_map;
+		MapController* map_controller;
 		SDL_Window* gWindow = NULL;
 		SDL_Surface* gScreenSurface = NULL;
 		SDL_Surface* gPNGSurface = NULL;
@@ -62,8 +62,10 @@ class ImageProcessor {
 		const int WALKING_ANIMATION_FRAMES = 4;
 		const int SCREEN_WIDTH = 640;
 		const int SCREEN_HEIGHT = 480;
+		const int DIST = 40;
 		SDL_Rect gSpriteClips[4];
 		LTexture gSpriteSheetTexture;
+		LTexture map_background;
 		SDL_Renderer* gRenderer = NULL;
 
 

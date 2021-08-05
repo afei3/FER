@@ -21,6 +21,7 @@ class Map {
 		unsigned getHeight();
 		Map();
 		Map(TERRAIN** map, unsigned u_width, unsigned u_height);
+		TERRAIN** getTerrain();
 		~Map();
 		
 };

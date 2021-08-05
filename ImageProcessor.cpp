@@ -188,8 +188,14 @@ void ImageProcessor::run() {
 							case SDLK_RIGHT:
 								map_controller->moveCursor(RIGHT);
 								break;
+							case SDLK_z:
+								cout << "Woo Hoo" << endl;
+								break;
+							case SDLK_x:
+								cout << "OH NO" << endl;
+								break;
 							default:
-								cout << map_controller->getCursor()->getY() << endl;
+								cout << map_controller->getCursor()->getY() << " " << map_controller->getCursor()->getX() << endl;
 								break;
 						}
 					}
@@ -202,7 +208,7 @@ void ImageProcessor::run() {
 				//Render current frame
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
 				map_background.render(0, 0);
-				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, SCREEN_HEIGHT - map_controller->getCursor()->getY() * DIST, currentClip);
+				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, map_controller->getCursor()->getY() * DIST, currentClip);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

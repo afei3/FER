@@ -33,6 +33,10 @@ Map::Map(TERRAIN** map, unsigned u_width, unsigned u_height) {
 	}
 }
 
+TERRAIN** Map::getTerrain() {
+	return map_terrain;
+}
+
 Map::~Map() {
 	for (unsigned i = 0; i < width; i++) {
 		delete[] map_terrain[i];

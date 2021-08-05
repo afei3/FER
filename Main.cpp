@@ -7,9 +7,18 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <string>
 #include "ImageProcessor.h"
+#include "Map.h"
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 int main(int argc, char* args[])
 {
+
+	Map* m = new Map("test_map.map");
+
+	free(m);
 
 	ImageProcessor i = ImageProcessor();
 

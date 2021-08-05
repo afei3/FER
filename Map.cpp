@@ -33,6 +33,30 @@ Map::Map(TERRAIN** map, unsigned u_width, unsigned u_height) {
 	}
 }
 
+Map::Map(string text_file) {
+	string line;
+	ifstream map_file(text_file);
+	if (map_file.is_open()) {
+		int line_count = 0;
+		while (getline(map_file, line)) {
+			cout << line << endl;
+			line_count++;
+		}
+		map_name = "???";
+		width = 10;
+		height = 10;
+		map_terrain = NULL;
+		map_file.close();
+	} else {
+		cout << "dummy" << endl;
+		map_name = "???";
+		width = 10;
+		height = 10;
+		map_terrain = NULL;
+	}
+
+}
+
 TERRAIN** Map::getTerrain() {
 	return map_terrain;
 }

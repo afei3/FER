@@ -107,7 +107,7 @@ void MapController::fillAdjacent(int** ret, int x, int y, int width, int height,
 	//Down
 	if (y != 0) {
 		if (ret[x][y - 1] > ret[x][y] + convertTerrain(current_map->getTerrain()[x][y - 1])) {
-			ret[x][y - 1] > ret[x][y] + convertTerrain(current_map->getTerrain()[x][y - 1]);
+			ret[x][y - 1] = ret[x][y] + convertTerrain(current_map->getTerrain()[x][y - 1]);
 			q.push(x);
 			q.push(y - 1);
 		}
@@ -118,9 +118,9 @@ int** MapController::getMovableSquare(unsigned int move) {
 	int** ret;
 
 	ret = new int* [current_map->getWidth()];
-	for (int i = 0; i < current_map->getWidth(); i++) {
+	for (unsigned int i = 0; i < current_map->getWidth(); i++) {
 		ret[i] = new int[current_map->getHeight()];
-		for (int j = 0; j < current_map->getHeight(); j++) {
+		for (unsigned int j = 0; j < current_map->getHeight(); j++) {
 			ret[i][j] = 99;
 		}
 	}

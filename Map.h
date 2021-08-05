@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -22,6 +23,7 @@ class Map {
 		Map();
 		Map(TERRAIN** map, unsigned u_width, unsigned u_height);
 		TERRAIN** getTerrain();
+		Map(string text_file);
 		~Map();
 		
 };

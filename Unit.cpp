@@ -13,3 +13,17 @@ void Unit::levelUp() {
 		xp -= 100;
 	}
 }
+
+Unit::Unit() {
+	name = "";
+	hp = 0;
+	max_hp = 0;
+	move = 0;
+	level = 0;
+	xp = 0;
+	for (int i = 0; i < 8; i++) {
+		stats[i] = 0;
+		stat_growths[i] = 0;
+		max_stats[i] = 0;
+	}
+}

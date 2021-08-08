@@ -22,6 +22,7 @@ class Map {
 		unsigned getHeight();
 		Map();
 		Map(TERRAIN** map, unsigned u_width, unsigned u_height);
+		TERRAIN convertNumtoTerrain(int num);
 		TERRAIN** getTerrain();
 		Map(string text_file);
 		~Map();

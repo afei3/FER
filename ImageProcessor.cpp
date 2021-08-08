@@ -89,7 +89,7 @@ bool ImageProcessor::loadMedia() {
 		gSpriteClips[3].h = 100;
 	}
 
-	if (!map_background.loadFromFile("map_14.png", gRenderer)) {
+	if (!map_background.loadFromFile("test_map.png", gRenderer)) {
 		printf("fmega\n");
 		success = false;
 	}

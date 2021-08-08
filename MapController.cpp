@@ -138,3 +138,10 @@ int** MapController::getMovableSquare(unsigned int move) {
 	}
 	return ret;
 }
+
+MapController::~MapController() {
+	free(current_map);
+	free(cursor);
+	delete[] allies;
+	delete[] enemies;
+}

@@ -72,9 +72,6 @@ Map::Map(string text_file) {
 			}
 			line_count++;
 		}
-		width = 10;
-		height = 10;
-		map_terrain = NULL;
 		map_file.close();
 	} else {
 		cout << "dumy" << endl;

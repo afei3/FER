@@ -17,11 +17,11 @@ void Cursor::moveUp() {
 }
 
 void Cursor::moveLeft() {
-	x += 1;
+	x -= 1;
 }
 
 void Cursor::moveRight() {
-	x -= 1;
+	x += 1;
 }
 
 Cursor::Cursor() {

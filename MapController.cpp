@@ -9,7 +9,7 @@ void MapController::moveCursor(DIRECTION direction) {
 			cursor->moveUp();
 		}
 	} else if (direction == RIGHT) {
-		if (cursor->getX() > 0) {
+		if (cursor->getX() < current_map->getWidth() - 1) {
 			cursor->moveRight();
 		}
 	} else if (direction == DOWN) {
@@ -17,7 +17,7 @@ void MapController::moveCursor(DIRECTION direction) {
 			cursor->moveDown();
 		}
 	} else if (direction == LEFT) {
-		if (cursor->getX() < current_map->getWidth() - 1) {
+		if (cursor->getX() > 0) {
 			cursor->moveLeft();
 		}
 	}
@@ -33,6 +33,14 @@ Cursor* MapController::getCursor() {
 
 MapController::MapController() {
 	current_map = new Map();
+	cursor = new Cursor();
+	allies = new Unit[10];
+	enemies = new Unit[10];
+	turn = 0;
+}
+
+MapController::MapController(string file) {
+	current_map = new Map(file);
 	cursor = new Cursor();
 	allies = new Unit[10];
 	enemies = new Unit[10];

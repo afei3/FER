@@ -16,10 +16,6 @@ using namespace std;
 int main(int argc, char* args[])
 {
 
-	Map* m = new Map("test_map.map");
-
-	free(m);
-
 	ImageProcessor i = ImageProcessor();
 
 	i.run();

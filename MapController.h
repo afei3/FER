@@ -22,5 +22,6 @@ class MapController {
 		Cursor* getCursor();
 		int** getMovableSquare(unsigned int move);
 		MapController();
+		MapController(string file);
 		~MapController();
 };

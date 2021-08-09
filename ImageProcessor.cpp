@@ -3,7 +3,7 @@
 bool ImageProcessor::init() {
 	//Initialization flag
 	bool success = true;
-	map_controller = new MapController();
+	map_controller = new MapController("test_map.map");
 
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -59,7 +59,7 @@ bool ImageProcessor::loadMedia() {
 	bool success = true;
 
 	//Load sprite sheet texture
-	if (!gSpriteSheetTexture.loadFromFile("cursortotal.png", gRenderer))
+	if (!gSpriteSheetTexture.loadFromFile("cursortotal1.png", gRenderer))
 	{
 		printf("Failed to load walking animation texture!\n");
 		success = false;
@@ -69,24 +69,24 @@ bool ImageProcessor::loadMedia() {
 		//Set sprite clips
 		gSpriteClips[0].x = 0;
 		gSpriteClips[0].y = 0;
-		gSpriteClips[0].w = 100;
-		gSpriteClips[0].h = 100;
+		gSpriteClips[0].w = 32;
+		gSpriteClips[0].h = 32;
 
-		gSpriteClips[1].x = 100;
+		gSpriteClips[1].x = 32;
 		gSpriteClips[1].y = 0;
-		gSpriteClips[1].w = 100;
-		gSpriteClips[1].h = 100;
+		gSpriteClips[1].w = 32;
+		gSpriteClips[1].h = 32;
 
-		gSpriteClips[2].x = 200;
+		gSpriteClips[2].x = 64;
 		gSpriteClips[2].y = 0;
-		gSpriteClips[2].w = 100;
-		gSpriteClips[2].h = 100;
+		gSpriteClips[2].w = 32;
+		gSpriteClips[2].h = 32;
 
 
-		gSpriteClips[3].x = 100;
+		gSpriteClips[3].x = 32;
 		gSpriteClips[3].y = 0;
-		gSpriteClips[3].w = 100;
-		gSpriteClips[3].h = 100;
+		gSpriteClips[3].w = 32;
+		gSpriteClips[3].h = 32;
 	}
 
 	if (!map_background.loadFromFile("test_map.png", gRenderer)) {
@@ -208,7 +208,7 @@ void ImageProcessor::run() {
 				//Render current frame
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
 				map_background.render(0, 0);
-				gSpriteSheetTexture.render(SCREEN_WIDTH - map_controller->getCursor()->getX() * DIST, map_controller->getCursor()->getY() * DIST, currentClip);
+				gSpriteSheetTexture.render(map_controller->getCursor()->getX() * DIST, map_controller->getCursor()->getY() * DIST, currentClip);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

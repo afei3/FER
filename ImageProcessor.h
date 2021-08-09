@@ -62,7 +62,7 @@ class ImageProcessor {
 		const int WALKING_ANIMATION_FRAMES = 4;
 		const int SCREEN_WIDTH = 640;
 		const int SCREEN_HEIGHT = 480;
-		const int DIST = 40;
+		const int DIST = 32;
 		SDL_Rect gSpriteClips[4];
 		LTexture gSpriteSheetTexture;
 		LTexture map_background;

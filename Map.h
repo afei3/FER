@@ -11,6 +11,8 @@ enum TERRAIN { PLAIN, FOREST, THICKET, FLOOR, PILLAR, MOUNTAIN, PEAK, GATE, THRO
 
 
 class Map {
+
+	//When working with the graph, height is first, width is second
 	private:
 		string map_name;
 		unsigned width;

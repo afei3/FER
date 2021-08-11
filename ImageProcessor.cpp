@@ -189,10 +189,21 @@ void ImageProcessor::run() {
 								map_controller->moveCursor(RIGHT);
 								break;
 							case SDLK_z:
-								cout << "Woo Hoo" << endl;
+								cout << map_controller->getMap()->getTerrain()[map_controller->getCursor()->getY()][map_controller->getCursor()->getX()] << endl;
 								break;
-							case SDLK_x:
-								cout << "OH NO" << endl;
+							case SDLK_x: {
+								int** stuff = map_controller->getMovableSquare(4);
+								for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
+									for (int j = 0; j < map_controller->getMap()->getWidth(); j++) {
+										cout << stuff[i][j] << " ";
+									}
+									cout << endl;
+								}
+								for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
+									delete[] stuff[i];
+								}
+								delete[] stuff;
+							}
 								break;
 							default:
 								cout << map_controller->getCursor()->getY() << " " << map_controller->getCursor()->getX() << endl;

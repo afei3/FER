@@ -162,6 +162,8 @@ void ImageProcessor::run() {
 
 			//Current animation frame
 			int frame = 0;
+			int** stuff = NULL;
+			MODES cur_mode = CURSOR_MOVE;
 
 			//While application is running
 			while (!quit)
@@ -192,17 +194,22 @@ void ImageProcessor::run() {
 								cout << map_controller->getMap()->getTerrain()[map_controller->getCursor()->getY()][map_controller->getCursor()->getX()] << endl;
 								break;
 							case SDLK_x: {
-								int** stuff = map_controller->getMovableSquare(4);
-								for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
-									for (int j = 0; j < map_controller->getMap()->getWidth(); j++) {
-										cout << stuff[i][j] << " ";
+								if (cur_mode == CURSOR_MOVE) {
+									stuff = map_controller->getMovableSquare(4);
+									for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
+										for (int j = 0; j < map_controller->getMap()->getWidth(); j++) {
+											cout << stuff[i][j] << " ";
+										}
+										cout << endl;
 									}
-									cout << endl;
+									cur_mode = CHARACTER_SELECTED;
+								} else {
+									for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
+										delete[] stuff[i];
+									}
+									delete[] stuff;
+									cur_mode = CURSOR_MOVE;
 								}
-								for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
-									delete[] stuff[i];
-								}
-								delete[] stuff;
 							}
 								break;
 							default:
@@ -220,6 +227,9 @@ void ImageProcessor::run() {
 				SDL_Rect* currentClip = &gSpriteClips[frame / 4];
 				map_background.render(0, 0);
 				gSpriteSheetTexture.render(map_controller->getCursor()->getX() * DIST, map_controller->getCursor()->getY() * DIST, currentClip);
+				if (cur_mode == CHARACTER_SELECTED) {
+					colorSquares(stuff, 4);
+				}
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);
@@ -238,4 +248,20 @@ void ImageProcessor::run() {
 
 	//Free resources and close SDL
 	close();
+}
+
+void ImageProcessor::colorSquares(int** movement_squares, int max_move) {
+	SDL_SetRenderDrawColor(gRenderer, 135, 206, 250, 0.2);
+	SDL_Rect rect;
+	rect.w = 32;
+	rect.h = 32;
+	for (int i = 0; i < map_controller->getMap()->getHeight(); i++) {
+		for (int j = 0; j < map_controller->getMap()->getWidth(); j++) {
+			if (movement_squares[i][j] <= max_move) {
+				rect.x = j * DIST;
+				rect.y = i * DIST;
+				SDL_RenderFillRect(gRenderer, &rect);
+			}
+		}
+	}
 }

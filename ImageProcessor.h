@@ -68,6 +68,8 @@ class ImageProcessor {
 		LTexture map_background;
 		SDL_Renderer* gRenderer = NULL;
 
+		enum MODES {CURSOR_MOVE, CHARACTER_SELECTED};
+
 
 	public:
 		bool init();
@@ -75,6 +77,7 @@ class ImageProcessor {
 		void close();
 		SDL_Surface* loadSurface(std::string path);
 		void run();
+		void colorSquares(int **movement_squares, int max_move);
 
 
 };

@@ -251,7 +251,8 @@ void ImageProcessor::run() {
 }
 
 void ImageProcessor::colorSquares(int** movement_squares, int max_move) {
-	SDL_SetRenderDrawColor(gRenderer, 135, 206, 250, 0.2);
+	SDL_SetRenderDrawColor(gRenderer, 135, 206, 250, 200);
+	SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
 	SDL_Rect rect;
 	rect.w = 32;
 	rect.h = 32;
